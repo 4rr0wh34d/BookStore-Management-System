@@ -24,6 +24,9 @@ class Excel23:
         self.database_name = database_name
         self.table_name = table_name
         self.workbook_name = workbook_name
+        # self.table_headings = table_headings
+        # total_query stores the total number of columns in terms of '?'
+        total_query = ''
 
         db_name_str = './' + self.database_name
         if not os.path.exists(db_name_str):
@@ -41,10 +44,17 @@ class Excel23:
             # ws = wb[f'{worksheet_name}']
             ws = wb.active
 
+            for col in range(ws.max_column):
+                # if it is the last column skip the comma
+                if col == ws.max_column - 1:
+                    total_query += '?'
+                else:
+                    total_query += '?, '
+
+            # Getting the value of each cell in a row starting from row 2 as row 1 includes the heading.
             for i in range(2, ws.max_row + 1):
                 values = [ws.cell(row=i, column=j).value for j in range(1, ws.max_column + 1)]
-                print(values)
-                self.cursor.execute(f'insert into {self.table_name} values(?, ?, ?, ?)', values)
+                self.cursor.execute(f'insert into {self.table_name} values({total_query})', values)
             self.db.commit()
             self.db.close()
 
@@ -64,6 +74,7 @@ class Excel23:
 
                 # Creating a new Excel workbook
                 wb = openpyxl.Workbook()
+
                 # wb.create_sheet('book_database')
 
                 # Creating a handle to a new worksheet
@@ -82,6 +93,7 @@ class Excel23:
 
                 # Saving the database
                 wb.save(self.workbook_name)
+                self.db.close()
 
             except Exception as e:
                 messagebox.showinfo('Writing error', f'Error while writing to Excel file. {e}')
