@@ -6,7 +6,8 @@ A graphical user interface-based project written in python using tkinter, sqlite
 
 When the program runs for the first time, it allows us to create the user with administrator privilege who can create other users of different groups. It also allows users to create database with their desired name. These database would include two tables, one for storing the users and their credentials and would be pre-assigned, named as 'users'. The other table would be used to store details of the products i.e. books and users are free to name the table and also define the number of fields and their name. However the users should include 5 fields as compulsory for the program to run correctly. The fields that must be included are Product_Code, Product_Name, Product_Type, Price and Quantity. 
 
-It also allows user to import data from excel file to be loaded into the sqlite database and also allow us to download the database data into an excel file. 
+It also allows user to import data from excel file to be loaded into the sqlite database and also allow us to download the database data into an excel file.I have included a sample excel file called book_records.xslx that could be exported into the 
+database through the file menu in the program.
 
 This Project includes 6 python scripts <ins>bookStoreGui.py</ins> which is the main file and the starting point for the program, <ins>access23.py</ins> which provides authentication functionality, <ins>excel23.py</ins> that provides functionality to read and write to Excel workbooks, <ins>epos23.py</ins> that provides users with the point of sale interface for transaction, <ins>editsqlite23.py</ins> for database query and lastly <ins>calculator23.py</ins> to provide calculator functionality to the users.
 
